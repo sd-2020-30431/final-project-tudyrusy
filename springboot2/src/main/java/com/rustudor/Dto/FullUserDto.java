@@ -1,12 +1,10 @@
 package com.rustudor.Dto;
 
-import com.rustudor.entity.Role;
-
 public class FullUserDto {
     private String name;
     private String username;
     private String password;
-    private Role role;
+    private String role;
 
     public FullUserDto() {
     }
@@ -35,11 +33,21 @@ public class FullUserDto {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "FullUserDto{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

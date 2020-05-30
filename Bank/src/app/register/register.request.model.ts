@@ -1,6 +1,6 @@
 export class RegisterRequestModel {
   name: string;
-  email: string;
+  role: number;
   username: string;
   password: string;
 }

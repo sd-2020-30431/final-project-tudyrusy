@@ -4,7 +4,6 @@ package com.rustudor.presentation.controller;
 import com.rustudor.Dto.*;
 
 import com.rustudor.Util.DataValidator;
-import com.rustudor.Util.RequestValidator;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
 import com.rustudor.business.mediator.Mediator;
@@ -12,14 +11,11 @@ import com.rustudor.business.mediator.comand.RegisterCommand;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
 import com.rustudor.business.mediator.response.*;
-import com.rustudor.entity.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -28,15 +24,15 @@ public class UserController {
     @Autowired
     private Mediator mediator;
 
+
     @GetMapping(value = "/getRole")
-    public ResponseEntity<Role> getRole(@RequestHeader("token") String token) {
+    public ResponseEntity<StringObj> getRole(@RequestHeader("token") String token) {
         Session session = SessionManager.getSessionMap().get(token);
         if (session == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         else
-            return new ResponseEntity<>(session.getRole(), HttpStatus.OK);
+            return new ResponseEntity<>(new StringObj(session.getRole()), HttpStatus.OK);
     }
-
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody FullUserDto fullUserDto) {
         

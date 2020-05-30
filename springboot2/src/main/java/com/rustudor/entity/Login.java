@@ -23,9 +23,8 @@ public class Login implements Serializable {
     @OneToOne(mappedBy = "login")
     @NotNull
     private User userFK;
-    @Enumerated(EnumType.STRING)
     @NotNull
-    private Role role;
+    private String role;
 
 
     public String getUsername() {
@@ -45,11 +44,11 @@ public class Login implements Serializable {
     }
 
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

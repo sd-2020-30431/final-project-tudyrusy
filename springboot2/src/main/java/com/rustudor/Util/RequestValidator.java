@@ -1,21 +1,18 @@
 package com.rustudor.Util;
 
-import com.rustudor.entity.Role;
-import org.springframework.http.HttpStatus;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 public class RequestValidator {
     public static boolean isUser(Session session){
-        if (session.getRole().equals(Role.USER))
+        if (session.getRole().equals("USER"))
             return true;
         else
             return false;
     }
 
     public static boolean isAdmin(Session session){
-        if (session.getRole().equals(Role.ADMIN))
+        if (session.getRole().equals("ADMIN"))
             return true;
         else
             return false;

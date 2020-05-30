@@ -2,7 +2,6 @@ package com.rustudor.business.Services;
 
 import com.rustudor.Dto.FullUserDto;
 import com.rustudor.entity.Login;
-import com.rustudor.entity.Role;
 import com.rustudor.entity.User;
 import com.rustudor.persistence.repository.LoginRepository;
 import com.rustudor.persistence.repository.PlaneRepository;

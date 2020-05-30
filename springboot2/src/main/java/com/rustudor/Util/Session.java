@@ -1,7 +1,5 @@
 package com.rustudor.Util;
 
-import com.rustudor.entity.Role;
-
 import java.time.Duration;
 import java.time.Instant;
 
@@ -11,12 +9,12 @@ public class Session {
     private String username;
     private Instant creationTime;
     private Duration expirationPeriod;
-    private Role role;
+    private String role;
 
     public Session() {
     }
 
-    public Session(String username, Instant creationTime, Duration expirationPeriod, Role role) {
+    public Session(String username, Instant creationTime, Duration expirationPeriod, String role) {
         this.username = username;
         this.creationTime = creationTime;
         this.expirationPeriod = expirationPeriod;
@@ -47,11 +45,11 @@ public class Session {
         this.expirationPeriod = expirationPeriod;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
