@@ -1,0 +1,17 @@
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+<button class="btn3" mat-raised-button color="primary" (click)="menu()">Main menu</button>
+
+<form method="get" action="index.html">
+  <div class="box">
+    <h1>Add Plane</h1>
+
+
+    <input [(ngModel)]="model.myString" type="text" name="model" placeholder="model" class="text-input" />
+
+    <br>
+
+    <button class="btn3" mat-raised-button color="primary" (click)="addPlane()">Add Plane</button>
+
+  </div> <!-- End Box -->
+
+</form>

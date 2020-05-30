@@ -10,6 +10,7 @@ public class Plane implements Serializable {
     @GeneratedValue
     @Column(nullable = false,updatable = false)
     private int id;
+    private String model;
     @OneToOne
     private Engine engine;
     @OneToOne

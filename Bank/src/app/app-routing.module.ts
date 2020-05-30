@@ -6,10 +6,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
 import {WelcomeComponent} from './welcome/welcome.component';
+import {AddPlaneComponent} from './add-plane/add-plane.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent}, {path: 'register', component: RegisterComponent},
-  {path: 'welcome', component: WelcomeComponent}, {path: 'login', component: LoginComponent}
+  {path: 'welcome', component: WelcomeComponent}, {path: 'login', component: LoginComponent},
+  {path: 'addPlane', component: AddPlaneComponent}
 ];
 
 @NgModule({

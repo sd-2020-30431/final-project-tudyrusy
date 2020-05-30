@@ -7,6 +7,7 @@ import com.rustudor.Util.DataValidator;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
 import com.rustudor.business.mediator.Mediator;
+import com.rustudor.business.mediator.comand.AddPlaneCommand;
 import com.rustudor.business.mediator.comand.RegisterCommand;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
@@ -33,6 +34,24 @@ public class UserController {
         else
             return new ResponseEntity<>(new StringObj(session.getRole()), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/addPlane")
+    public ResponseEntity addPlane(@RequestBody StringObj s) {
+
+
+
+            AddPlaneCommand c = new AddPlaneCommand(s.getMyString());
+            AddPlaneCommandHandler h = (AddPlaneCommandHandler)mediator.<AddPlaneCommand,AddPlaneCommandResponse>getHandler(c);
+            AddPlaneCommandResponse r = h.handle(c);
+            if ()
+            return new ResponseEntity(HttpStatus.OK);
+
+
+            System.out.println("item input error");
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody FullUserDto fullUserDto) {
         

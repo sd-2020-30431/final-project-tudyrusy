@@ -8,13 +8,15 @@ import { LoginComponent } from './login/login.component';
 import {MatButtonModule} from '@angular/material';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AddPlaneComponent } from './add-plane/add-plane.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AddPlaneComponent
   ],
   imports: [
     BrowserModule,
