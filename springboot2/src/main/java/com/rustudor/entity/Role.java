@@ -1,5 +1,5 @@
 package com.rustudor.entity;
 
 public enum Role {
-    USER,ADMIN
+    USER,ADMIN,CT,PILOT
 }

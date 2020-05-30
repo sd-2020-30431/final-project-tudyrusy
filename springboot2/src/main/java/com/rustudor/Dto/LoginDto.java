@@ -1,5 +1,7 @@
 package com.rustudor.Dto;
 
+import com.rustudor.entity.Role;
+
 public class LoginDto {
     private String username;
     private String password;

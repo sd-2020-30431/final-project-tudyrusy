@@ -3,21 +3,13 @@ package com.rustudor.business.Services;
 import com.rustudor.Dto.*;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
-import com.rustudor.business.decorator.WasteReportDecorator;
-import com.rustudor.business.factory.AbstractFactory;
-import com.rustudor.business.factory.FactoryProducer;
-import com.rustudor.business.factory.Report;
-import com.rustudor.entity.Item;
 import com.rustudor.entity.Login;
-import com.rustudor.entity.User;
-import com.rustudor.persistence.repository.ItemRepository;
 import com.rustudor.persistence.repository.LoginRepository;
+import com.rustudor.persistence.repository.PlaneRepository;
 import com.rustudor.persistence.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
-import java.util.ArrayList;
 
 @Service
 public class QueryService {
@@ -26,7 +18,7 @@ public class QueryService {
     @Autowired
     LoginRepository loginRepository;
     @Autowired
-    ItemRepository itemRepository;
+    PlaneRepository planeRepository;
 
     public TokenDto login(LoginDto loginDto) {
         Login login = loginRepository.findByUsername(loginDto.getUsername());
@@ -44,13 +36,11 @@ public class QueryService {
             return null;
         }
     }
-    public UserDto findByUsername(String username) {
-        User u = usersRepository.findByUsername(username);
-        return new UserDto(u.getName(),u.getEmail(),u.getGoal());
-    }
+
     public void logout(String token) {
         SessionManager.getSessionMap().remove(token);
     }
+    /*
     public ArrayList<ItemDto1> getItems(Session session) {
         ArrayList<ItemDto1> itemDtos = new ArrayList<>();
 
@@ -84,5 +74,5 @@ public class QueryService {
         stringObj.setMyString(report1.makeReport(user).getReport());
 
         return stringObj;
-    }
+    }*/
 }

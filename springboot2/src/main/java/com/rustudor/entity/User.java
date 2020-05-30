@@ -16,11 +16,7 @@ public class User implements Serializable {
     private int id;
     //@NotNull
     private String name;
-    private int goal;
-    private String email;
     //@NotNull
-    @OneToMany(mappedBy = "userFK")
-    private List<Item> GroceryList = new ArrayList<Item>();
     @OneToOne
     @NotNull
     private Login login;
@@ -44,35 +40,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getGoal() {
-        return goal;
-    }
-
-    public void setGoal(int goal) {
-        this.goal = goal;
-    }
-
     public Login getLogin() {
         return login;
     }
 
     public void setLogin(Login login) {
         this.login = login;
-    }
-
-    public List<Item> getGroceryList() {
-        return GroceryList;
-    }
-
-    public void setGroceryList(List<Item> groceryList) {
-        GroceryList = groceryList;
     }
 }
