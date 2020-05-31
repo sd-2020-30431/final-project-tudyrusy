@@ -1,5 +1,6 @@
 package com.rustudor.business.mediator;
 
+import com.rustudor.business.mediator.comand.AddPlaneCommand;
 import com.rustudor.business.mediator.comand.RegisterCommand;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
@@ -21,6 +22,8 @@ public class Mediator implements ApplicationContextAware{
         map.put(LoginQuery.class, LoginQueryHandler.class);
         map.put(LogoutQuery.class, LogoutQueryHandler.class);
         map.put(RegisterCommand.class,RegisterCommandHandler.class);
+        map.put(AddPlaneCommand.class,AddPlaneCommandHandler.class);
+        map.put(GetPlanesQ.class,GetPlanesH.class);
     }
 
     @Override

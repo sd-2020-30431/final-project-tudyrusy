@@ -4,12 +4,15 @@ import com.rustudor.Dto.*;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
 import com.rustudor.entity.Login;
+import com.rustudor.entity.Plane;
 import com.rustudor.persistence.repository.LoginRepository;
 import com.rustudor.persistence.repository.PlaneRepository;
 import com.rustudor.persistence.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class QueryService {
@@ -40,6 +43,23 @@ public class QueryService {
     public void logout(String token) {
         SessionManager.getSessionMap().remove(token);
     }
+
+    public List<PlaneDto> getPlanes() {
+        List<PlaneDto> planeDtos = new ArrayList<>();
+
+        List<Plane> planes = planeRepository.findAllByOkEqualsOrOkEquals(0,2);
+        for (Plane p : planes) {
+            System.out.println(p.getModel());
+            if (p.getOk()==0)
+                planeDtos.add(new PlaneDto(p.getModel(),"unchecked"));
+            else
+                planeDtos.add(new PlaneDto(p.getModel(),"problem"));
+        }
+
+        return  planeDtos;
+    }
+
+
     /*
     public ArrayList<ItemDto1> getItems(Session session) {
         ArrayList<ItemDto1> itemDtos = new ArrayList<>();

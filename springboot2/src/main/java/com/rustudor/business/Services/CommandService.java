@@ -1,11 +1,8 @@
 package com.rustudor.business.Services;
 
 import com.rustudor.Dto.FullUserDto;
-import com.rustudor.entity.Login;
-import com.rustudor.entity.User;
-import com.rustudor.persistence.repository.LoginRepository;
-import com.rustudor.persistence.repository.PlaneRepository;
-import com.rustudor.persistence.repository.UsersRepository;
+import com.rustudor.entity.*;
+import com.rustudor.persistence.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +15,13 @@ public class CommandService {
     LoginRepository loginRepository;
     @Autowired
     PlaneRepository planeRepository;
+
+    @Autowired
+    EngineRepository engineRepository;
+    @Autowired
+    WingsRepository wingsRepository;
+    @Autowired
+    LandingGearRepository landingGearRepository;
 
     @Transactional
     public int register(FullUserDto fullUserDto) {
@@ -37,6 +41,41 @@ public class CommandService {
         loginRepository.save(login);
         usersRepository.save(user);
         return 0;
+    }
+
+    @Transactional
+    public String addPlane(String s) {
+        Plane plane = new Plane();
+
+        Engine engine = new Engine();
+        engine.setDescription("");
+        engine.setStatus(0);
+
+
+        Wings wings = new Wings();
+        wings.setDescription("");
+        wings.setStatus(0);
+
+
+        LandingGear landingGear = new LandingGear();
+        landingGear.setDescription("");
+        landingGear.setStatus(0);
+
+
+        plane.setModel(s);
+        plane.setEngine(engine);
+        plane.setLandingGear(landingGear);
+        plane.setWings(wings);
+        plane.setOk(0);
+        /*landingGear.setPlane(plane);
+        wings.setPlane(plane);
+        engine.setPlane(plane);*/
+        engineRepository.save(engine);
+        wingsRepository.save(wings);
+        landingGearRepository.save(landingGear);
+        planeRepository.save(plane);
+
+        return "ok";
     }
 
     /*@Transactional

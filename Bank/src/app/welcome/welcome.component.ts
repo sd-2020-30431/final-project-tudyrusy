@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HttpHeaders} from '@angular/common/http';
 import {StringObj} from './stringObj.model';
+import {PlaneModel} from './plane.model';
 
 @Component({
   selector: 'app-welcome',
@@ -13,6 +14,7 @@ import {StringObj} from './stringObj.model';
 export class WelcomeComponent implements OnInit {
   actualToken: string;
   role: string;
+  planes: PlaneModel[];
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -43,6 +45,13 @@ export class WelcomeComponent implements OnInit {
     this.http.get<StringObj>('http://localhost:8080/users/getRole', httpOptions).subscribe(result => {
       console.log(result);
       this.role = result.myString;
+    }, error => console.log(error));
+  }
+
+  getPlanes() {
+    this.http.get<PlaneModel[]>('http://localhost:8080/users/getPlanes').subscribe(result => {
+      console.log(result);
+      this.planes = result;
     }, error => console.log(error));
   }
 }

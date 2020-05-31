@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -35,33 +37,39 @@ public class UserController {
             return new ResponseEntity<>(new StringObj(session.getRole()), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getPlanes")
+    public ResponseEntity<List<PlaneDto>> getPlanes() {
+        GetPlanesQ c = new GetPlanesQ();
+        GetPlanesH h = (GetPlanesH) mediator.<GetPlanesQ, GetPlanesR>getHandler(c);
+        GetPlanesR r = h.handle(c);
+        return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/addPlane")
-    public ResponseEntity addPlane(@RequestBody StringObj s) {
-
-
-
-            AddPlaneCommand c = new AddPlaneCommand(s.getMyString());
-            AddPlaneCommandHandler h = (AddPlaneCommandHandler)mediator.<AddPlaneCommand,AddPlaneCommandResponse>getHandler(c);
-            AddPlaneCommandResponse r = h.handle(c);
-            if ()
-            return new ResponseEntity(HttpStatus.OK);
-
-
-            System.out.println("item input error");
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<StringObj> addPlane(@RequestBody String s) {
+        System.out.println(s);
+        AddPlaneCommand c = new AddPlaneCommand(s);
+        AddPlaneCommandHandler h = (AddPlaneCommandHandler) mediator.<AddPlaneCommand, AddPlaneCommandResponse>getHandler(c);
+        AddPlaneCommandResponse r = h.handle(c);
+        System.out.println(r.getS());
+        if (r.getS().equals("ok"))
+            return new ResponseEntity<>(new StringObj("ok"),HttpStatus.OK);
+        else {
+            return new ResponseEntity<>(new StringObj("error"),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
 
     @PostMapping(value = "/register")
     public ResponseEntity<String> register(@RequestBody FullUserDto fullUserDto) {
-        
+
         System.out.println(fullUserDto);
         if (!DataValidator.validateUser(fullUserDto)) {
             System.out.println("user input error");
             return new ResponseEntity<>("INVALID DATA", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         RegisterCommand c = new RegisterCommand(fullUserDto);
-        RegisterCommandHandler h = (RegisterCommandHandler) mediator.<RegisterCommand,RegisterCommandResponse>getHandler(c);
+        RegisterCommandHandler h = (RegisterCommandHandler) mediator.<RegisterCommand, RegisterCommandResponse>getHandler(c);
         RegisterCommandResponse r = h.handle(c);
         switch (r.getResponse()) {
             case 0:
@@ -79,7 +87,7 @@ public class UserController {
             return new ResponseEntity<>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         else {
             LogoutQuery q = new LogoutQuery(token);
-            LogoutQueryHandler h = (LogoutQueryHandler) mediator.<LogoutQuery,LogoutQueryResponse>getHandler(q);
+            LogoutQueryHandler h = (LogoutQueryHandler) mediator.<LogoutQuery, LogoutQueryResponse>getHandler(q);
             LogoutQueryResponse r = h.handle(q);
             return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
         }
@@ -87,7 +95,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginDto) {
-        LoginQuery loginQuery= new LoginQuery(loginDto);
+        LoginQuery loginQuery = new LoginQuery(loginDto);
         LoginQueryHandler loginQueryHandler = (LoginQueryHandler) mediator.<LoginQuery, LoginQueryResponse>getHandler(loginQuery);
         LoginQueryResponse loginQueryResponse = loginQueryHandler.handle(loginQuery);
         TokenDto tokenDto = loginQueryResponse.getTokenDto();

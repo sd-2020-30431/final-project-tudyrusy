@@ -9,7 +9,7 @@ import {StringObj} from '../welcome/stringObj.model';
   styleUrls: ['./add-plane.component.css']
 })
 export class AddPlaneComponent implements OnInit {
-  model: StringObj = new StringObj();
+  model: string;
 
   constructor(private http: HttpClient, private router: Router) {
   }

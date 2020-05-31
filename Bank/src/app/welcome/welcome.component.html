@@ -5,7 +5,7 @@
   <h1>Welcome CONTROL TOWER</h1>
 
   <button class="btn3" mat-raised-button color="primary" (click)="addPlane()">Add Plane</button>
-  <button class="btn3" mat-raised-button color="primary" (click)="viewProfile()">View Reports</button>
+  <button class="btn3" mat-raised-button color="primary" (click)="getReports()">Get Reports</button>
   <button class="btn3" mat-raised-button color="primary" (click)="logout()">Logout</button>
 
   <br>
@@ -14,10 +14,13 @@
 </div> <!-- End Box -->
 <div class="box" *ngIf="role == 'USER'">
   <h1>Welcome USER</h1>
-
+  <button class="btn3" mat-raised-button color="primary" (click)="getPlanes()">Get Planes</button>
   <button class="btn3" mat-raised-button color="primary" (click)="logout()">Logout</button>
 
   <br>
+  <ul>
+    <li *ngFor="let p of planes">Plane:{{p.model}}, Status:{{p.status}}</li>
+  </ul>
   <br>
 
 </div> <!-- End Box -->
