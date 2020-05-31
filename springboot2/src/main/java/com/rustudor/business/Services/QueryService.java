@@ -51,12 +51,20 @@ public class QueryService {
         for (Plane p : planes) {
             System.out.println(p.getModel());
             if (p.getOk()==0)
-                planeDtos.add(new PlaneDto(p.getModel(),"unchecked"));
+                planeDtos.add(new PlaneDto(p.getId(),p.getModel(),"unchecked"));
             else
-                planeDtos.add(new PlaneDto(p.getModel(),"problem"));
+                planeDtos.add(new PlaneDto(p.getId(),p.getModel(),"problem"));
         }
 
         return  planeDtos;
+    }
+
+    public FullPlaneDto getPlane(int id) {
+        Plane plane = planeRepository.findById(id);
+        if (plane.getOk()==0)
+            return new FullPlaneDto(plane.getId(),plane.getModel(),"unchecked",plane.getLandingGear().getStatus(),plane.getLandingGear().getDescription(),plane.getWings().getStatus(),plane.getWings().getDescription(),plane.getEngine().getStatus(),plane.getEngine().getDescription());
+        else
+            return new FullPlaneDto(plane.getId(),plane.getModel(),"problem",plane.getLandingGear().getStatus(),plane.getLandingGear().getDescription(),plane.getWings().getStatus(),plane.getWings().getDescription(),plane.getEngine().getStatus(),plane.getEngine().getDescription());
     }
 
 

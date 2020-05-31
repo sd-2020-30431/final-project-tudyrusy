@@ -45,6 +45,14 @@ public class UserController {
         return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/checkPlane")
+    public ResponseEntity<FullPlaneDto> checkPlane(@RequestBody int id) {
+        GetPlaneQ c = new GetPlaneQ();
+        GetPlaneH h = (GetPlaneH) mediator.<GetPlaneQ, GetPlaneR>getHandler(c);
+        GetPlaneR r = h.handle(c);
+        return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/addPlane")
     public ResponseEntity<StringObj> addPlane(@RequestBody String s) {
         System.out.println(s);

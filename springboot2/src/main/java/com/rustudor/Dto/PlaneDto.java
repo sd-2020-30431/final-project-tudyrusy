@@ -1,12 +1,22 @@
 package com.rustudor.Dto;
 
 public class PlaneDto {
+    int id;
     private String model;
     private String status;
 
-    public PlaneDto(String model, String status) {
+    public PlaneDto(int id,String model, String status) {
+        this.id = id;
         this.model = model;
         this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getModel() {
