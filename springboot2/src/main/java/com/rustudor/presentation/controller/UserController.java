@@ -9,6 +9,7 @@ import com.rustudor.Util.SessionManager;
 import com.rustudor.business.mediator.Mediator;
 import com.rustudor.business.mediator.comand.AddPlaneCommand;
 import com.rustudor.business.mediator.comand.RegisterCommand;
+import com.rustudor.business.mediator.comand.SavePlaneC;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
 import com.rustudor.business.mediator.response.*;
@@ -45,12 +46,22 @@ public class UserController {
         return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/checkPlane")
+    @PostMapping(value = "/checkPlane")
     public ResponseEntity<FullPlaneDto> checkPlane(@RequestBody int id) {
-        GetPlaneQ c = new GetPlaneQ();
+        System.out.println("yesssss"+id);
+        GetPlaneQ c = new GetPlaneQ(id);
         GetPlaneH h = (GetPlaneH) mediator.<GetPlaneQ, GetPlaneR>getHandler(c);
         GetPlaneR r = h.handle(c);
-        return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
+        return new ResponseEntity<>(r.getFullPlaneDto(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity save(@RequestBody FullPlaneDto fullPlaneDto) {
+
+        SavePlaneC c = new SavePlaneC(fullPlaneDto);
+        SavePlaneH h = (SavePlaneH) mediator.<SavePlaneC, SavePlaneR>getHandler(c);
+        SavePlaneR r = h.handle(c);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value = "/addPlane")

@@ -61,10 +61,46 @@ export class WelcomeComponent implements OnInit {
 
 
   checkPlane(id: number) {
-    this.http.get<PlaneModelFull>('http://localhost:8080/users/checkPlane').subscribe(result => {
+    this.http.post<PlaneModelFull>('http://localhost:8080/users/checkPlane', id).subscribe(result => {
       console.log(result);
       this.plane = result;
     }, error => console.log(error));
     this.view = 'plane';
+  }
+
+  sp() {
+    this.view = 'menu';
+  }
+
+  wok() {
+    this.plane.ws = 1;
+  }
+
+  wnok() {
+    this.plane.ws = 2;
+  }
+
+  eok() {
+    this.plane.es = 1;
+  }
+
+  enok() {
+    this.plane.es = 2;
+  }
+
+  lgok() {
+    this.plane.lgs = 1;
+  }
+
+  lgnok() {
+    this.plane.lgs = 2;
+  }
+
+  save() {
+    this.http.post('http://localhost:8080/users/save', this.plane).subscribe(result => {
+      console.log(result);
+      alert('saved');
+    }, error => console.log(error));
+    
   }
 }

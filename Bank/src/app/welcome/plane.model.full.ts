@@ -4,8 +4,8 @@ export class PlaneModelFull {
   status: string;
   lgs: number;
   lgd: string;
-  ws: string;
+  ws: number;
   wd: string;
-  es: string;
+  es: number;
   ed: string;
 }

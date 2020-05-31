@@ -1,5 +1,6 @@
 package com.rustudor.business.Services;
 
+import com.rustudor.Dto.FullPlaneDto;
 import com.rustudor.Dto.FullUserDto;
 import com.rustudor.entity.*;
 import com.rustudor.persistence.repository.*;
@@ -76,6 +77,26 @@ public class CommandService {
         planeRepository.save(plane);
 
         return "ok";
+    }
+
+    @Transactional
+    public void savePlane(FullPlaneDto fullPlaneDto) {
+        Plane plane = planeRepository.findById(fullPlaneDto.getId());
+
+        plane.getEngine().setStatus(fullPlaneDto.getEs());
+        plane.getEngine().setDescription(fullPlaneDto.getEd());
+
+        plane.getWings().setStatus(fullPlaneDto.getWs());
+        plane.getWings().setDescription(fullPlaneDto.getWd());
+
+        plane.getLandingGear().setStatus(fullPlaneDto.getLgs());
+        plane.getLandingGear().setDescription(fullPlaneDto.getLgd());
+
+        if (plane.getWings().getStatus() == 1 && plane.getLandingGear().getStatus() == 1 && plane.getEngine().getStatus() == 1)
+            plane.setOk(1);
+        else plane.setOk(2);
+
+        planeRepository.save(plane);
     }
 
     /*@Transactional
