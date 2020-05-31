@@ -5,6 +5,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {StringObj} from './stringObj.model';
 import {PlaneModel} from './plane.model';
 import {PlaneModelFull} from './plane.model.full';
+import {ReportModel} from './report.model';
 
 @Component({
   selector: 'app-welcome',
@@ -18,6 +19,9 @@ export class WelcomeComponent implements OnInit {
   planes: PlaneModel[];
   view: string;
   plane: PlaneModelFull;
+  reports: ReportModel[];
+  view0: string;
+  report: ReportModel;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -39,6 +43,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     this.view = 'menu';
+    this.view0 = 'menu';
     this.actualToken = window.localStorage.getItem('token');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -101,6 +106,24 @@ export class WelcomeComponent implements OnInit {
       console.log(result);
       alert('saved');
     }, error => console.log(error));
-    
+    setTimeout(() => {
+      this.getPlanes();
+    }, 1500);
+  }
+
+  viewReport(r: ReportModel) {
+    this.view = 'report';
+    this.report = r;
+  }
+
+  getReports() {
+    this.http.get<ReportModel[]>('http://localhost:8080/users/getReports').subscribe(result => {
+      console.log(result);
+      this.reports = result;
+    }, error => console.log(error));
+  }
+
+  sp0() {
+    this.view0 = 'menu';
   }
 }

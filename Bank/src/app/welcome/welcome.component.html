@@ -1,7 +1,7 @@
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
 
 
-<div class="box" *ngIf="role == 'CT'">
+<div class="box" *ngIf="role == 'CT' && view0 == 'menu'">
   <h1>Welcome CONTROL TOWER</h1>
 
   <button class="btn3" mat-raised-button color="primary" (click)="addPlane()">Add Plane</button>
@@ -10,8 +10,25 @@
 
   <br>
   <br>
+  <div class="grow" style="margin: 5px" *ngFor="let r of reports"
+       [ngStyle]="{'border':r.planestatus === 0 ? '5px solid gray': r.planestatus === 1 ? '5px solid green' : '5px solid red'}"
+       (click)="viewReport(r)">Plane id:{{r.planeid}} Model:{{r.planemodel}}, Status:{{r.planestatus}}</div>
 
 </div> <!-- End Box -->
+
+<div class="box" *ngIf="role == 'CT' && view0 == 'report'">
+  <button class="btn3" mat-raised-button color="primary" (click)="sp0()">Show planes</button>
+  <h1>REPORT FOR PLANE id: {{report.planeid}} model: {{report.planemodel}} status: {{report.planestatus}}</h1>
+
+
+  <br>
+  <br>
+  <div class="inline" style="width: 50%">{{report.r}}</div>
+  <div class="inline" style="width: 50%">{{report.dr}}</div>
+
+</div> <!-- End Box -->
+
+
 <div class="box" *ngIf="role == 'USER' && view == 'menu'">
   <h1>Welcome USER</h1>
   <button class="btn3" mat-raised-button color="primary" (click)="getPlanes()">Get Planes</button>
