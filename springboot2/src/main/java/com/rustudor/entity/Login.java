@@ -25,7 +25,15 @@ public class Login implements Serializable {
     private User userFK;
     @NotNull
     private String role;
+    private int ok;
 
+    public int getOk() {
+        return ok;
+    }
+
+    public void setOk(int ok) {
+        this.ok = ok;
+    }
 
     public String getUsername() {
         return username;

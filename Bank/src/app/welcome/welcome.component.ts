@@ -22,6 +22,7 @@ export class WelcomeComponent implements OnInit {
   reports: ReportModel[];
   view0: string;
   report: ReportModel;
+  pilotok: number;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -54,6 +55,12 @@ export class WelcomeComponent implements OnInit {
     this.http.get<StringObj>('http://localhost:8080/users/getRole', httpOptions).subscribe(result => {
       console.log(result);
       this.role = result.myString;
+      if (result.myString === 'PILOT') {
+        const timerId = setInterval(() => this.http.get<number>('http://localhost:8080/users/getp', httpOptions).subscribe(result1 => {
+          console.log(result1);
+          this.pilotok = result1;
+        }, error => console.log(error)), 2000);
+      }
     }, error => console.log(error));
   }
 
@@ -112,7 +119,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   viewReport(r: ReportModel) {
-    this.view = 'report';
+    this.view0 = 'report';
     this.report = r;
   }
 
@@ -125,5 +132,19 @@ export class WelcomeComponent implements OnInit {
 
   sp0() {
     this.view0 = 'menu';
+  }
+
+  pok(id: number) {
+    this.http.post('http://localhost:8080/users/pok', id).subscribe(result => {
+      console.log(result);
+      alert('Sent OK to PILOT');
+    }, error => console.log(error));
+  }
+
+  pnok(id: number) {
+    this.http.post('http://localhost:8080/users/pnok', id).subscribe(result => {
+      console.log(result);
+      alert('Sent NOT OK to PILOT');
+    }, error => console.log(error));
   }
 }

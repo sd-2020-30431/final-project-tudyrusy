@@ -1,22 +1,57 @@
 package com.rustudor.Dto;
 
 public class ReportDto {
-    public String report;
-    public String color;
+    private int planeid;
+    private String planemodel;
+    private int planestatus;
+    private String r;
+    private String dr;
 
-    public String getReport() {
-        return report;
+    public int getPlaneid() {
+        return planeid;
     }
 
-    public void setReport(String report) {
-        this.report = report;
+    public void setPlaneid(int planeid) {
+        this.planeid = planeid;
     }
 
-    public String getColor() {
-        return color;
+    public String getPlanemodel() {
+        return planemodel;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setPlanemodel(String planemodel) {
+        this.planemodel = planemodel;
+    }
+
+    public int getPlanestatus() {
+        return planestatus;
+    }
+
+    public void setPlanestatus(int planestatus) {
+        this.planestatus = planestatus;
+    }
+
+    public String getR() {
+        return r;
+    }
+
+    public void setR(String r) {
+        this.r = r;
+    }
+
+    public String getDr() {
+        return dr;
+    }
+
+    public void setDr(String dr) {
+        this.dr = dr;
+    }
+
+    public ReportDto(int planeid, String planemodel, int planestatus, String r, String dr) {
+        this.planeid = planeid;
+        this.planemodel = planemodel;
+        this.planestatus = planestatus;
+        this.r = r;
+        this.dr = dr;
     }
 }

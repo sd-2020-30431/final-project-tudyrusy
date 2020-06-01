@@ -6,8 +6,11 @@
     <h1>Add Plane</h1>
 
 
-    <input [(ngModel)]="model" type="text" name="model" placeholder="model" class="text-input" />
-
+    <input [(ngModel)]="plane.model" type="text" name="model" placeholder="model" class="text-input" />
+    <h2>Pilot id:</h2><br>
+    <select id="item">
+      <option *ngFor="let a of pilotIds">{{a}}</option>
+    </select><br>
     <br>
 
     <button class="btn3" mat-raised-button color="primary" (click)="addPlane()">Add Plane</button>

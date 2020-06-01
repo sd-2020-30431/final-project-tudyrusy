@@ -23,8 +23,12 @@
 
   <br>
   <br>
-  <div class="inline" style="width: 50%">{{report.r}}</div>
-  <div class="inline" style="width: 50%">{{report.dr}}</div>
+  <div class="inline" style="width: 50%"><pre class="inline" style="width: 50%">Brief{{'\n'+report.r}}</pre></div>
+  <div class="inline" style="width: 50%"><pre class="inline" style="width: 50%">Detailed{{'\n'+report.dr}}</pre></div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <button class="btn3" mat-raised-button style="color: green" (click)="pok(report.planeid)">OK->PILOT</button>
+  <button class="btn3" mat-raised-button style="color: red" (click)="pnok(report.planeid)">NOT OK->PILOT</button>
+
 
 </div> <!-- End Box -->
 
@@ -77,7 +81,9 @@
 <div class="box" *ngIf="role == 'PILOT'">
   <h1>Welcome PILOT</h1>
 
-
+  <h1 *ngIf="pilotok===1" style="color: green">ALL GOOD</h1>
+  <h1 *ngIf="pilotok===0" style="color: gray">WAITING FOR CT</h1>
+  <h1 *ngIf="pilotok===2" style="color: red">PROBLEM</h1>
   <br>
   <br>
 

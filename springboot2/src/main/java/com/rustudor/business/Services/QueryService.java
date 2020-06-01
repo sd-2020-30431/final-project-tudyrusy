@@ -3,8 +3,11 @@ package com.rustudor.business.Services;
 import com.rustudor.Dto.*;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
+import com.rustudor.business.factory.Report;
+import com.rustudor.business.factory.ReportFactory;
 import com.rustudor.entity.Login;
 import com.rustudor.entity.Plane;
+import com.rustudor.entity.User;
 import com.rustudor.persistence.repository.LoginRepository;
 import com.rustudor.persistence.repository.PlaneRepository;
 import com.rustudor.persistence.repository.UsersRepository;
@@ -66,6 +69,39 @@ public class QueryService {
         else
             return new FullPlaneDto(plane.getId(),plane.getModel(),"problem",plane.getLandingGear().getStatus(),plane.getLandingGear().getDescription(),plane.getWings().getStatus(),plane.getWings().getDescription(),plane.getEngine().getStatus(),plane.getEngine().getDescription());
     }
+
+    public List<ReportDto> getReports() {
+        List<Plane> planes = planeRepository.findAll();
+        List<ReportDto> reportDtos = new ArrayList<>();
+
+        ReportFactory reportFactory = new ReportFactory();
+        Report report = reportFactory.getReport("BRIEF");
+        Report dreport = reportFactory.getReport("DETAILED");
+
+        for (Plane p : planes){
+            reportDtos.add(new ReportDto(p.getId(),p.getModel(),p.getOk(),report.makeReport(p),dreport.makeReport(p)));
+        }
+
+        return reportDtos;
+    }
+
+    public List<Integer> getPilots() {
+        List<Integer> pilotIds = new ArrayList<>();
+
+        List<Login> users = loginRepository.findAllByRoleEquals("PILOT");
+
+        for (Login u:users){
+            pilotIds.add(u.getId());
+        }
+
+        return pilotIds;
+    }
+
+    public int getp(String username) {
+        Login login = loginRepository.findByUsername(username);
+        return login.getOk();
+    }
+
 
 
     /*

@@ -2,6 +2,7 @@ package com.rustudor.business.Services;
 
 import com.rustudor.Dto.FullPlaneDto;
 import com.rustudor.Dto.FullUserDto;
+import com.rustudor.Dto.PlaneDto1;
 import com.rustudor.entity.*;
 import com.rustudor.persistence.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class CommandService {
             return -1;//duplicate username
         user.setName(fullUserDto.getName());
         login.setRole(fullUserDto.getRole());
+        login.setOk(0);
         login.setUsername(fullUserDto.getUsername());
         login.setUserFK(user);
         login.setPassword(fullUserDto.getPassword());
@@ -45,7 +47,7 @@ public class CommandService {
     }
 
     @Transactional
-    public String addPlane(String s) {
+    public String addPlane(PlaneDto1 planeDto1) {
         Plane plane = new Plane();
 
         Engine engine = new Engine();
@@ -63,7 +65,8 @@ public class CommandService {
         landingGear.setStatus(0);
 
 
-        plane.setModel(s);
+        plane.setModel(planeDto1.getModel());
+        plane.setPilotId(planeDto1.getPilotId());
         plane.setEngine(engine);
         plane.setLandingGear(landingGear);
         plane.setWings(wings);
@@ -97,6 +100,18 @@ public class CommandService {
         else plane.setOk(2);
 
         planeRepository.save(plane);
+    }
+    @Transactional
+    public void pnok(int id) {
+        Plane plane = planeRepository.findById(id);
+        Login login = loginRepository.findById(plane.getPilotId());
+        login.setOk(2);
+    }
+    @Transactional
+    public void pok(int id) {
+        Plane plane = planeRepository.findById(id);
+        Login login = loginRepository.findById(plane.getPilotId());
+        login.setOk(1);
     }
 
     /*@Transactional

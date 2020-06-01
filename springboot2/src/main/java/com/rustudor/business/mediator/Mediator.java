@@ -1,8 +1,6 @@
 package com.rustudor.business.mediator;
 
-import com.rustudor.business.mediator.comand.AddPlaneCommand;
-import com.rustudor.business.mediator.comand.RegisterCommand;
-import com.rustudor.business.mediator.comand.SavePlaneC;
+import com.rustudor.business.mediator.comand.*;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
 import org.springframework.beans.*;
@@ -27,6 +25,11 @@ public class Mediator implements ApplicationContextAware{
         map.put(GetPlanesQ.class,GetPlanesH.class);
         map.put(GetPlaneQ.class,GetPlaneH.class);
         map.put(SavePlaneC.class,SavePlaneH.class);
+        map.put(GetReportsQ.class,GetReportsH.class);
+        map.put(GetPilotsQ.class,GetPilotsH.class);
+        map.put(Pokq.class,Pokh.class);
+        map.put(Pnokq.class,Pnokh.class);
+        map.put(Getpq.class,Getph.class);
     }
 
     @Override

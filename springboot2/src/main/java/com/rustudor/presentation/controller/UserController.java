@@ -7,9 +7,7 @@ import com.rustudor.Util.DataValidator;
 import com.rustudor.Util.Session;
 import com.rustudor.Util.SessionManager;
 import com.rustudor.business.mediator.Mediator;
-import com.rustudor.business.mediator.comand.AddPlaneCommand;
-import com.rustudor.business.mediator.comand.RegisterCommand;
-import com.rustudor.business.mediator.comand.SavePlaneC;
+import com.rustudor.business.mediator.comand.*;
 import com.rustudor.business.mediator.handler.*;
 import com.rustudor.business.mediator.query.*;
 import com.rustudor.business.mediator.response.*;
@@ -38,12 +36,54 @@ public class UserController {
             return new ResponseEntity<>(new StringObj(session.getRole()), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getp")
+    public ResponseEntity<Integer> getp(@RequestHeader("token") String token) {
+        Session session = SessionManager.getSessionMap().get(token);
+        Getpq c = new Getpq(session.getUsername());
+        Getph h = (Getph) mediator.<Getpq, Getpr>getHandler(c);
+        Getpr r = h.handle(c);
+        return new ResponseEntity<>(r.getR(), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/getPlanes")
     public ResponseEntity<List<PlaneDto>> getPlanes() {
         GetPlanesQ c = new GetPlanesQ();
         GetPlanesH h = (GetPlanesH) mediator.<GetPlanesQ, GetPlanesR>getHandler(c);
         GetPlanesR r = h.handle(c);
         return new ResponseEntity<>(r.getPlaneDtos(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getPilots")
+    public ResponseEntity<List<Integer>> getPilots() {
+        GetPilotsQ c = new GetPilotsQ();
+        GetPilotsH h = (GetPilotsH) mediator.<GetPilotsQ, GetPilotsR>getHandler(c);
+        GetPilotsR r = h.handle(c);
+        return new ResponseEntity<>(r.getPilots(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getReports")
+    public ResponseEntity<List<ReportDto>> getReports() {
+        GetReportsQ c = new GetReportsQ();
+        GetReportsH h = (GetReportsH) mediator.<GetReportsQ, GetReportsR>getHandler(c);
+        GetReportsR r = h.handle(c);
+        return new ResponseEntity<>(r.getReportDtos(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/pok")
+    public ResponseEntity pok(@RequestBody int id) {
+        Pokq c = new Pokq(id);
+        Pokh h = (Pokh) mediator.<Pokq, Pokr>getHandler(c);
+        Pokr r = h.handle(c);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = "/pnok")
+    public ResponseEntity pnok(@RequestBody int id) {
+        Pnokq c = new Pnokq(id);
+        Pnokh h = (Pnokh) mediator.<Pnokq, Pnokr>getHandler(c);
+        Pnokr r = h.handle(c);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value = "/checkPlane")
@@ -65,8 +105,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/addPlane")
-    public ResponseEntity<StringObj> addPlane(@RequestBody String s) {
-        System.out.println(s);
+    public ResponseEntity<StringObj> addPlane(@RequestBody PlaneDto1 s) {
+        System.out.println(s.toString());
         AddPlaneCommand c = new AddPlaneCommand(s);
         AddPlaneCommandHandler h = (AddPlaneCommandHandler) mediator.<AddPlaneCommand, AddPlaneCommandResponse>getHandler(c);
         AddPlaneCommandResponse r = h.handle(c);

@@ -22,6 +22,15 @@ public class Plane implements Serializable {
     @NotNull
     private LandingGear landingGear;
     private int ok; //0=unchecked   1=ok 2=not ok
+    private int pilotId;
+
+    public int getPilotId() {
+        return pilotId;
+    }
+
+    public void setPilotId(int pilotId) {
+        this.pilotId = pilotId;
+    }
 
     public int getId() {
         return id;

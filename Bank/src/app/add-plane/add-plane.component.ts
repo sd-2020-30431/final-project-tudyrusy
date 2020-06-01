@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {StringObj} from '../welcome/stringObj.model';
+import {PlaneModel1} from './plane.model1';
 
 @Component({
   selector: 'app-add-plane',
@@ -9,12 +10,23 @@ import {StringObj} from '../welcome/stringObj.model';
   styleUrls: ['./add-plane.component.css']
 })
 export class AddPlaneComponent implements OnInit {
-  model: string;
+  plane: PlaneModel1 = new PlaneModel1();
+  pilotIds: number[];
+  item;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
+    this.http.get<number[]>('http://localhost:8080/users/getPilots').subscribe(
+      result => {
+        console.log(result);
+        this.pilotIds = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   menu() {
@@ -22,7 +34,9 @@ export class AddPlaneComponent implements OnInit {
   }
 
   addPlane() {
-    this.http.post<StringObj>('http://localhost:8080/users/addPlane', this.model).subscribe(
+    this.item = (document.getElementById('item')) as HTMLSelectElement;
+    this.plane.pilotId = +(this.item.options[this.item.selectedIndex].text.toString());
+    this.http.post<StringObj>('http://localhost:8080/users/addPlane', this.plane).subscribe(
       result => {
         console.log(result);
         if (result.myString === 'ok') {
